@@ -8,11 +8,11 @@ const openai = new OpenAI({
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { messages } = req.body;
 
-  const completion = await openai.createChatCompletion({
+  const completion = await openai.chat.completions.create({
     model: "gpt-4",
     messages,
   });
 
-  const reply = completion.data.choices[0].message?.content || "Sorry, something went wrong.";
+  const reply = completion.choices[0].message?.content || "Sorry, something went wrong.";
   res.status(200).json({ reply });
 }
